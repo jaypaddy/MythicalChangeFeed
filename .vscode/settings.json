@@ -1,0 +1,8 @@
+{
+    "azureFunctions.deploySubpath": "target/azure-functions/mythicalchangefeed-20200517073803425",
+    "azureFunctions.projectLanguage": "Java",
+    "azureFunctions.projectRuntime": "~3",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.preDeployTask": "package",
+    "azureFunctions.templateFilter": "All"
+}
