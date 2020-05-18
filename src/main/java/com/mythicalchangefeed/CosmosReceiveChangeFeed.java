@@ -18,15 +18,26 @@ public class CosmosReceiveChangeFeed {
             databaseName = "bulkImportDb",
             collectionName = "c3",
             connectionStringSetting = "AzureCosmosDbConnString",
-            createLeaseCollectionIfNotExists = true
+            createLeaseCollectionIfNotExists = true,
+            maxItemsPerInvocation=1
         )
-        Object[] items,
-        @EventHubOutput(name = "event", eventHubName = "member4", connection = "AzureEventHubConnection") OutputBinding<Object> toEH,
+        String items,
+        @EventHubOutput(name = "event", 
+        eventHubName = "member4", 
+        connection = "AzureEventHubConnection") OutputBinding<Object> toEH,
         final ExecutionContext context
     ) {
-        context.getLogger().info("Documents count: " + items.length);
-        for (Object obj : items) {
-         toEH.setValue(obj);   
-        }
+
+
+        context.getLogger().info(items.toString());
+        toEH.setValue(items);
+       // context.getLogger().info("Documents count: " + items.length);
+       // int nI=0;
+       /* for (String obj : items) {
+            toEH.setValue(obj); 
+            nI++;
+            context.getLogger().info("To EH : " + nI);  
+            context.getLogger().info(obj.toString());
+        }*/
     }
 }

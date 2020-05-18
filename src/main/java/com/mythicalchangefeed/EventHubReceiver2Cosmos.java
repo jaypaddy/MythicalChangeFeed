@@ -14,20 +14,19 @@ public class EventHubReceiver2Cosmos {
     @FunctionName("EventHubReceiver2Cosmos")
     public void run(
         @EventHubTrigger(name = "message", 
-        eventHubName = "items", 
-        connection = "AzureCosmosDbConnString", 
+        eventHubName = "member4", 
+        connection = "AzureEventHubConnection", 
         consumerGroup = "changefeed", 
-        cardinality = Cardinality.MANY) List<String> message,
+        cardinality = Cardinality.ONE) String message,
         @CosmosDBOutput(name = "outputItem",
           databaseName = "bulkImportDb",
           collectionName = "returns",
           connectionStringSetting = "AzureCosmosDbConnString")
-        OutputBinding<List<String>> outputItem,
+        OutputBinding<String> outputItem,
         final ExecutionContext context
     ) {
-        context.getLogger().info("Java Event Hub trigger function executed.");
-        context.getLogger().info("Length:" + message.size());
+        context.getLogger().info("EH2Cosmos");
+        context.getLogger().info(message);
         outputItem.setValue(message);
-        message.forEach(singleMessage -> context.getLogger().info(singleMessage));
     }
 }
